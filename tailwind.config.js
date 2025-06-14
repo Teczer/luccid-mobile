@@ -27,6 +27,7 @@ module.exports = {
           DEFAULT: '#102314',
           foreground: '#e4f3f4',
         },
+        dark: '#0A0A0A', // 👈 Ajouté ici
         destructive: {
           DEFAULT: '#26a879',
           foreground: '#ffffff',

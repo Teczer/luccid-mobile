@@ -1,38 +1,32 @@
+import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
-import { useEffect, useState } from 'react';
-import { Session } from '@supabase/supabase-js';
-import * as SplashScreen from 'expo-splash-screen';
 import 'react-native-reanimated';
 
 import '../global.css';
 
+import React, { useEffect } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import { LogBox, useColorScheme } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 
-import Auth from '@/components/Auth';
-import { supabase } from '@/lib/supabase';
-import Account from '@/components/Account';
+import { AuthProvider } from '@/providers/auth-provider';
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+export { ErrorBoundary } from 'expo-router';
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: '(tabs)',
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+LogBox.ignoreAllLogs();
 
 export default function RootLayout() {
-  const [session, setSession] = useState<Session | null>(null);
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);
@@ -43,32 +37,24 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    // Clean up the listener on unmount
-    return () => {
-      listener.subscription.unsubscribe();
-    };
-  }, []);
-
   if (!loaded) {
     return null;
   }
 
-  // Affiche Auth ou Account selon la session
-  return <AuthGate session={session} />;
+  return <RootLayoutNav />;
 }
 
-function AuthGate({ session }: { session: Session | null }) {
-  if (!session) {
-    return <Auth />;
-  }
-  return <Account session={session} />;
+function RootLayoutNav() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <AuthProvider>
+        <Stack>
+          <Stack.Screen name="(root)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        </Stack>
+      </AuthProvider>
+    </ThemeProvider>
+  );
 }

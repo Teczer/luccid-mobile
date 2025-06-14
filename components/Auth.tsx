@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button, TextInput, Text, Alert, View } from 'react-native';
 
-import { supabase } from '../lib/supabase';
+import { supabase } from '@/lib/supabase';
+import GetStarted from '@/components/GetStarted';
 
 export default function Auth() {
   const [email, setEmail] = useState('');
@@ -10,7 +11,6 @@ export default function Auth() {
 
   async function signInWithEmail() {
     setLoading(true);
-    console.log({ email, password });
     const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
@@ -30,6 +30,8 @@ export default function Auth() {
     if (error) Alert.alert(error.message);
     setLoading(false);
   }
+
+  return <GetStarted />;
 
   return (
     <View className="h-full w-full flex items-center justify-center px-8">

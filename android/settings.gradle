@@ -24,7 +24,7 @@ plugins {
 
 extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
   if (System.getenv('EXPO_USE_COMMUNITY_AUTOLINKING') == '1') {
-    ex.autolinkLibrariesFromCommand()
+    ex.autolinkLibrariesFromCommand(expoAutolinking.rnConfigCommand)
   } else {
     ex.autolinkLibrariesFromCommand(expoAutolinking.rnConfigCommand)
   }

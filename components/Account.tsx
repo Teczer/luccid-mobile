@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Session } from '@supabase/supabase-js';
 import { View, Alert, TextInput, Text, Button } from 'react-native';
+
+import { useAuth } from '@/providers/auth-provider';
 
 import Avatar from './Avatar';
 import { supabase } from '../lib/supabase';
 
-export default function Account({ session }: { session: Session }) {
+export default function Account() {
+  const { session } = useAuth();
+
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
   const [website, setWebsite] = useState('');
@@ -127,7 +130,7 @@ export default function Account({ session }: { session: Session }) {
       </View>
 
       <View>
-        <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
+        <Button title="Déconnexion" onPress={() => supabase.auth.signOut()} />
       </View>
     </View>
   );

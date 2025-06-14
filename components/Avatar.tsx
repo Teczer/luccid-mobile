@@ -1,3 +1,4 @@
+import { Buffer } from 'buffer';
 import { useState, useEffect } from 'react';
 import { StyleSheet, View, Alert, Image, Button } from 'react-native';
 
@@ -26,18 +27,9 @@ export default function Avatar({ onUpload, size = 150, url }: Props) {
 
   async function downloadImage(path: string) {
     try {
-      const { data, error } = await supabase.storage.from('avatars').download(path);
-
-      if (error) {
-        throw error;
-      }
-
-      // Convertir le blob en base64 pour l'affichage
-      const reader = new FileReader();
-      reader.readAsDataURL(data);
-      reader.onload = () => {
-        setAvatarUrl(reader.result as string);
-      };
+      const { data } = supabase.storage.from('avatars').getPublicUrl(path);
+      setAvatarUrl(data.publicUrl);
+      console.log('data', data);
     } catch (error) {
       if (error instanceof Error) {
         console.log('Error downloading image: ', error.message);
@@ -57,17 +49,23 @@ export default function Avatar({ onUpload, size = 150, url }: Props) {
       const fileInfo = await getFileInfo(uri);
       if (!fileInfo.exists) throw new Error('File does not exist');
 
-      // 3. Prépare le fichier pour l’upload
+      // 3. Lis le fichier en base64
+      const base64String = await readAsBase64(uri); // Assure-toi que cette fonction retourne la base64 SANS le préfixe "data:image/..."
+      // Si tu as un préfixe, enlève-le :
+      // const base64 = base64String.replace(/^data:image\/\w+;base64,/, '');
+
+      // 4. Convertis en buffer
+      const buffer = Buffer.from(base64String, 'base64');
+
+      // 5. Prépare le nom du fichier
       const fileName = uri.split('/').pop() || `avatar_${Date.now()}.jpg`;
       const fileExt = fileName.split('.').pop();
-      const filePath = `${Math.random()}.${fileExt}`;
+      const filePath = `avatar_${Date.now()}.${fileExt}`;
 
-      // 4. Upload vers Supabase Storage
-      const response = await fetch(uri);
-      const blob = await response.blob();
-
-      let { error } = await supabase.storage.from('avatars').upload(filePath, blob, {
-        contentType: blob.type,
+      // 6. Upload vers Supabase Storage
+      const { error } = await supabase.storage.from('avatars').upload(filePath, buffer, {
+        cacheControl: '3600',
+        contentType: 'image/jpeg', // ou 'image/png' selon le type
         upsert: true,
       });
 
@@ -86,7 +84,6 @@ export default function Avatar({ onUpload, size = 150, url }: Props) {
       setUploading(false);
     }
   }
-
   return (
     <View>
       {avatarUrl ? (
