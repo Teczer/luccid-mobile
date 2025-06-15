@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, TextInput, Text, Alert, View } from 'react-native';
 
 import { supabase } from '@/lib/supabase';
-import GetStarted from '@/components/GetStarted';
+import GetStarted from '@/features/get-started/components/get-started.component';
 
 export default function Auth() {
   const [email, setEmail] = useState('');
