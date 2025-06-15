@@ -1,19 +1,23 @@
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { View, ImageBackground, Text } from 'react-native';
+import { View, ImageBackground, Text, Image } from 'react-native';
+
+import GetStartedBadge from '@/features/get-started/components/get-started-badge.component';
 
 export default function GetStarted() {
-  const image = require('../../../assets/images/bg-song-choicer.png');
+  const songChoicerImage = require('../../../assets/images/song-choicer.png');
+  const backgroundImage = require('../../../assets/images/bg-song-choicer.png');
+
   return (
     <View className="relative h-full w-full bg-transparent">
-      <ImageBackground source={image} resizeMode="cover" className="w-full h-1/2 absolute z-0 top-0" />
+      <ImageBackground source={backgroundImage} resizeMode="cover" className="w-full h-1/2 absolute z-0 top-0" />
       <LinearGradient
         colors={[
           'rgba(10,10,10,0)', // 0% - transparent
           'rgba(10,10,10,1)', // 27% - opaque
           'rgba(10,10,10,1)', // 100% - opaque
         ]}
-        locations={[0, 0.27, 1]}
+        locations={[0, 0.4, 1]}
         style={{
           height: '100%',
           position: 'absolute',
@@ -21,17 +25,31 @@ export default function GetStarted() {
           zIndex: 0,
         }}
       />
-      <View className="bg-transparent w-full h-[30%]"></View>
+      <View className="bg-transparent w-full h-[20%]"></View>
+      <View className="bg-transparent w-full h-full flex items-center justify-start gap-y-10 px-10 bg-">
+        <Image source={songChoicerImage} className="w-20 h-20" />
+        <Text className="text-white text-center text-3xl font-bold font-mono mb-10">Welcome to Luccid!</Text>
 
-      <View className="bg-transparent w-full h-full flex items-center justify-start gap-y-10 px-10">
-        <Text className="text-white text-center text-3xl font-bold font-mono">Welcome to Luccid!</Text>
+        <GetStartedBadge
+          backgroundClass="bg-purple-950"
+          borderColorClass="border-purple-800"
+          emoji="💿"
+          description="Explorez la discographie complète de vos artistes préférés"
+        />
 
-        <View className="flex flex-row items-center justify-start gap-x-4 border border-red-500 w-full">
-          <View className="flex items-center justify-center w-20 h-20 bg-fuchsia-950 border border-purple-700 rounded-lg">
-            <Text className="text-4xl">🎤</Text>
-          </View>
-          <Text className="text-white text-lg">Classez vos musiques</Text>
-        </View>
+        <GetStartedBadge
+          backgroundClass="bg-blue-950"
+          borderColorClass="border-blue-800"
+          emoji="🏆"
+          description="Faites s’affronter les musiques pour établir votre classement personnel"
+        />
+
+        <GetStartedBadge
+          backgroundClass="bg-emerald-950"
+          borderColorClass="border-emerald-800"
+          emoji="🤝"
+          description="Partagez votre profil avec vos amis et comparez vos classements"
+        />
       </View>
     </View>
   );
