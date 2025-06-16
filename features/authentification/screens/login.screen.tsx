@@ -1,10 +1,10 @@
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Button, TextInput, Text, Alert, View } from 'react-native';
 
 import { supabase } from '@/lib/supabase';
-import GetStarted from '@/features/get-started/components/get-started.component';
 
-export default function Auth() {
+export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,21 +20,11 @@ export default function Auth() {
     setLoading(false);
   }
 
-  async function signUpWithEmail() {
-    setLoading(true);
-    const { error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
-
-    if (error) Alert.alert(error.message);
-    setLoading(false);
-  }
-
-  return <GetStarted />;
-
   return (
     <View className="h-full w-full flex items-center justify-center px-8">
+      <View className="w-full my-5">
+        <Button title="Retour" onPress={() => router.back()} />
+      </View>
       <View className="w-full my-5">
         <Text className="font-bold mb-1">Email</Text>
         <TextInput
@@ -58,10 +48,7 @@ export default function Auth() {
         />
       </View>
       <View className="my-5">
-        <Button title="Sign in" disabled={loading} onPress={signInWithEmail} />
-      </View>
-      <View>
-        <Button title="Sign up" disabled={loading} onPress={signUpWithEmail} />
+        <Button title="Se Connecter" disabled={loading} onPress={signInWithEmail} />
       </View>
     </View>
   );

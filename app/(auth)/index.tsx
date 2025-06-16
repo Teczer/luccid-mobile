@@ -1,3 +1,3 @@
-import Auth from '@/components/Auth';
+import GetStarted from '@/features/get-started/components/get-started.component';
 
-export default Auth;
+export default GetStarted;
