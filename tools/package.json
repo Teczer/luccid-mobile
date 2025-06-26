@@ -1,0 +1,21 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "svg-2-obj": "node ./svg-2-obj/index.js",
+    "svg-2-component": "node ./svg-2-component/index.js",
+    "lazy-boilerplate": "plop",
+    "js2ts": "node ./js2ts.js",
+    "figma-token-to-json": "node ./figma-token-to-json/createToken.js",
+    "check-missing-translations": "node ./translations/check-missing-translations.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jsdom": "^20.0.0",
+    "plop": "^3.1.2",
+    "sanitize-html": "^2.8.0"
+  }
+}

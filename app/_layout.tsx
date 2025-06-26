@@ -8,6 +8,7 @@ import React, { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { LogBox, useColorScheme } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 
 import { AuthProvider } from '@/providers/auth-provider';
@@ -48,13 +49,15 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AuthProvider>
-        <Stack>
-          <Stack.Screen name="(root)" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        </Stack>
-      </AuthProvider>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <AuthProvider>
+          <Stack>
+            <Stack.Screen name="(root)" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          </Stack>
+        </AuthProvider>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
