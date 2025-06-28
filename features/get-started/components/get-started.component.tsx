@@ -39,7 +39,12 @@ export default function GetStarted() {
 
   return (
     <View className="relative h-full w-full bg-transparent">
-      <ImageBackground source={backgroundImage} resizeMode="cover" className="w-full h-1/2 absolute z-0 top-0" />
+      <ImageBackground
+        source={backgroundImage}
+        resizeMode="cover"
+        blurRadius={3}
+        className="w-full h-1/2 absolute z-0 top-0"
+      />
       <LinearGradient
         colors={[
           'rgba(10,10,10,0)', // 0% - transparent
