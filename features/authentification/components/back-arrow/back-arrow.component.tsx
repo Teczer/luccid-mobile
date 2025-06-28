@@ -13,7 +13,7 @@ export const BackArrow = () => {
   };
 
   return (
-    <Pressable className="absolute top-20 w-full" onPress={handleGoBack}>
+    <Pressable className="absolute top-20 w-full transition-all active:scale-105" onPress={handleGoBack}>
       <FontAwesome name="arrow-left" size={25} color={'#fff'} />
     </Pressable>
   );

@@ -10,7 +10,7 @@ export const AuthProvidersButtons = () => {
       <Pressable
         // disabled={loading}
         onPress={() => {}}
-        className="flex-1 flex-row items-center justify-center h-16 border border-[#453d54] bg-transparent rounded-2xl gap-x-2"
+        className="flex-1 flex-row items-center justify-center h-16 border border-[#453d54] bg-transparent rounded-2xl gap-x-2 transition-all active:scale-105"
         style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
       >
         <Icon name="flat-color-icons_google" color={'#fff'} />
@@ -20,7 +20,7 @@ export const AuthProvidersButtons = () => {
       <Pressable
         // disabled={loading}
         onPress={() => {}}
-        className="flex-1 flex-row items-center justify-center h-16 border border-[#453d54] bg-transparent rounded-2xl gap-x-2"
+        className="flex-1 flex-row items-center justify-center h-16 border border-[#453d54] bg-transparent rounded-2xl gap-x-2 transition-all active:scale-105"
         style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
       >
         <FontAwesome name="apple" size={20} color={'#fff'} />

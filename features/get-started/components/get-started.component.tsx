@@ -34,24 +34,23 @@ const BADGES: BadgeData[] = [
 ];
 
 export default function GetStarted() {
-  const songChoicerImage = require('../../../assets/images/song-choicer.png');
   const backgroundImage = require('../../../assets/images/bg-song-choicer.png');
+  const songChoicerImage = require('../../../assets/images/new-song-choicer.png');
 
   return (
     <View className="relative h-full w-full bg-transparent">
       <ImageBackground
         source={backgroundImage}
         resizeMode="cover"
-        blurRadius={3}
+        blurRadius={8}
         className="w-full h-1/2 absolute z-0 top-0"
       />
       <LinearGradient
         colors={[
           'rgba(10,10,10,0)', // 0% - transparent
-          'rgba(10,10,10,1)', // 27% - opaque
           'rgba(10,10,10,1)', // 100% - opaque
         ]}
-        locations={[0, 0.4, 1]}
+        locations={[0, 0.4]}
         style={{
           height: '100%',
           position: 'absolute',
@@ -62,12 +61,12 @@ export default function GetStarted() {
       <View className="bg-transparent w-full h-[20%]"></View>
       <View className="bg-transparent w-full h-full flex items-center justify-start gap-y-10 px-10 bg-">
         <View
-          className="w-20 h-20"
+          className="w-24 h-24"
           style={{
             shadowColor: '#ffffff',
             shadowOffset: {
-              height: 0,
-              width: 0,
+              height: 1,
+              width: 2,
             },
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
