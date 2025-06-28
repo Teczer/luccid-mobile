@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'expo-router';
 import { Text } from 'react-native';
 
-export const LoginFooter = () => {
+export const SignUpFooter = () => {
   return (
     <Text className="text-gray-200 text-center text-base">
-      Doesn't have an account?{' '}
-      <Link push href={'/(auth)/register'} className="text-white font-bold">
-        Sign up here!
+      Already have an account?{' '}
+      <Link push href={'/(auth)/login'} className="text-white font-bold">
+        Sign In here!
       </Link>
     </Text>
   );
