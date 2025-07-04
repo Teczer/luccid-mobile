@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Alert, TextInput, Text, Button } from 'react-native';
 
 import { useAuth } from '@/providers/auth-provider';
+import { Icon } from '@/components/icon/icon.component';
 
 import Avatar from './Avatar';
 import { supabase } from '../lib/supabase';
@@ -93,6 +94,9 @@ export default function Account() {
           }}
         />
       </View>
+
+      <Icon name="flat-color-icons_google" />
+
       <View className="w-full my-5">
         <Text className="font-bold mb-1">Email</Text>
         <TextInput

@@ -52,7 +52,14 @@ function RootLayoutNav() {
     <SafeAreaProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <AuthProvider>
-          <Stack>
+          <Stack
+            screenOptions={{
+              animation: 'fade',
+              contentStyle: { backgroundColor: '#fff' },
+              headerShown: false,
+            }}
+            initialRouteName="(root)"
+          >
             <Stack.Screen name="(root)" options={{ headerShown: false }} />
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           </Stack>
